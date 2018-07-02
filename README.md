@@ -12,18 +12,24 @@ A script used to fetch events from wikipedia for a specific day (today by defaul
 yarn start [-a|--all] [-h|--html]
 ```
 Options:
+
     --all Used to get all wikipedia events
+
     --html When defined return the html value with links
+
+
 
 In `./sources/aws.js` in an script example to deploy it on AWS.
 
 [Here is a test API.](https://eh8jjia7j5.execute-api.eu-west-3.amazonaws.com/prod/events)
+
 Possible query parameters:
     - lang: language to fetch (`en` or `fr` for now)
     - day: day for date to fetch (default is today)
     - month: month for date to fetch (default is today)
     - html: returns html content
     - all: returns all wikipedia's events
+
 Do not flood the API, I will shut it down otherwise...
 
 ## Built With
