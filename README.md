@@ -14,7 +14,7 @@ yarn start [-a|--all] [-h|--html] [-l||--lang <language>]
 
 Options:
 ```
-    --lang Wikipedia language to get (`en` or `fr` for now) 
+    --lang Wikipedia language to get (`en`, `fr`, `ru` or `de` for now) 
     --all Used to get all wikipedia events
     --html When defined return the html value with links
 ```
@@ -25,7 +25,7 @@ In `./sources/aws.js` in an script example to deploy it on AWS.
 [Here is a test API.](https://eh8jjia7j5.execute-api.eu-west-3.amazonaws.com/prod/events)
 
 Possible query parameters:
-- __lang__ Language to fetch (`en` or `fr` for now)
+- __lang__ Language to fetch (`en`, `fr`, `ru` or `de` for now)
 - __day__ Day for date to fetch (default is today)
 - __month__ Month for date to fetch (default is today)
 - __html__ Returns html content
