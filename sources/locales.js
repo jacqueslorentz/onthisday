@@ -52,7 +52,7 @@ const locales = {
                 monthIndex > 9 ? monthIndex : `0${monthIndex}`}-${day}`
             : `${day}_${locales.ru.months[monthIndex - 1]}`),
         categories: ['importansDays', 'events', 'births', 'death'],
-        dateSeparator: () => '— ',
+        dateSeparator: (all, html) => (html ? '&#x2014; ' : '— '),
     },
 };
 module.exports = locales;

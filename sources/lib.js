@@ -13,21 +13,33 @@ const getURL = (language, day, month, all) => {
     return `${baseUrl}${locales[language].template(day, month, !all)}`;
 };
 
+const upperFirstLetter = (language, str) => {
+    if (language !== 'fr' || str.charAt(0) === '<') {
+        return str;
+    }
+    return `${str.charAt(0).toUpperCase()}${str.slice(1)}`;
+};
+
+const convertHTMLLinks = (language, html) => {
+    const newhref = `href="https://${language}.wikipedia.org/wiki/`;
+    return html.replace(/href="\/wiki\//g, newhref);
+};
+
 const splitDateFromContent = (elem, html, language, all) => {
     const dateSep = (html
-        ? locales[language].dateSeparator(all)
-        : htmlDecode(locales[language].dateSeparator(all))
+        ? locales[language].dateSeparator(all, html)
+        : htmlDecode(locales[language].dateSeparator(all, html))
     );
-    const tmp = (html ? elem.html() : elem.text());
+    const tmp = (html ? convertHTMLLinks(language, elem.html()) : elem.text());
     const index = tmp.indexOf(dateSep);
-    return (index === -1 ? tmp : tmp.substr(index + dateSep.length));
+    return upperFirstLetter(language, (index === -1 ? tmp : tmp.substr(index + dateSep.length)));
 };
 
 const html2json = (body, language, html, all) => {
     const $ = cheerio.load(body);
     return $('.mw-parser-output > ul > li').get().map((e) => {
         const elem = $(e);
-        const date = parseInt(elem.text().split(locales[language].dateSeparator(all))[0], 10);
+        const date = parseInt(elem.text().split(locales[language].dateSeparator(all, html))[0], 10);
         const categorieIndex = $(elem.parent().get(0)).prevAll('h2').get().length - 1;
         if (categorieIndex >= locales[language].categories.length) {
             return { categorie: null };
@@ -43,7 +55,8 @@ const html2json = (body, language, html, all) => {
             return {
                 date,
                 categorie,
-                events: child.map(el => (html ? $(el).html() : $(el).text())),
+                events: child.map(el => upperFirstLetter(language,
+                    (html ? convertHTMLLinks(language, $(el).html()) : $(el).text()))),
             };
         }
         return { date, categorie, events: [splitDateFromContent(elem, html, language, all)] };
