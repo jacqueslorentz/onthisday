@@ -5,8 +5,8 @@ exports.handler = async event => new Promise((resolve, reject) => {
     const date = new Date();
     const options = {
         lang: lang || 'en',
-        html: html ? true : false,
-        all: all ? true : false,
+        html: !!html,
+        all: !!all,
         day: (!day || !month ? date.getDate() : day),
         month: (!day || !month ? date.getMonth() + 1 : month),
     };
