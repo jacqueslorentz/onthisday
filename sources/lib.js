@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 
 const locales = require('./locales');
 
-const htmlDecode = value => cheerio.load('<div/>')('div').html(value).text();
+const htmlDecode = (value) => cheerio.load('<div/>')('div').html(value).text();
 
 const getURL = (language, day, month, all) => {
     if (!Object.keys(locales).includes(language) || month < 1 || month > 12) {
@@ -55,7 +55,7 @@ const html2json = (body, language, html, all) => {
             return {
                 date,
                 categorie,
-                events: child.map(el => upperFirstLetter(language,
+                events: child.map((el) => upperFirstLetter(language,
                     (html ? convertHTMLLinks(language, $(el).html()) : $(el).text()))),
             };
         }
@@ -83,5 +83,5 @@ const html2json = (body, language, html, all) => {
 
 module.exports = async ({ lang, day, month, html, all }) => {
     const url = getURL(lang, day, month, all);
-    return (url ? rp({ uri: url, transform: body => html2json(body, lang, html, all) }) : null);
+    return (url ? rp({ uri: url, transform: (body) => html2json(body, lang, html, all) }) : null);
 };

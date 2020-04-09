@@ -30,7 +30,7 @@ const locales = {
             ? `Wikipedia:Hauptseite/Jahrestage/${locales.de.months[monthIndex - 1]}/${day}`
             : `${day}._${locales.de.months[monthIndex - 1]}`),
         categories: ['events', 'births', 'death'],
-        dateSeparator: all => (all ? ': ' : '&#8211;&#160;'),
+        dateSeparator: (all) => (all ? ': ' : '&#8211;&#160;'),
     },
     ru: {
         months: [

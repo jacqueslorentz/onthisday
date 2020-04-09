@@ -14,6 +14,6 @@ const lang = argv.lang || 'en';
     const day = date.getDate();
     const month = date.getMonth() + 1;
     return onthisday({ lang, day, month, html, all })
-        .then(data => console.log(JSON.stringify(data)))
+        .then((data) => console.log(JSON.stringify(data)))
         .catch(console.error);
 })();

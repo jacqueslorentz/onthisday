@@ -1,6 +1,6 @@
 const onthisday = require('./lib');
 
-exports.handler = async event => new Promise((resolve, reject) => {
+exports.handler = async (event) => new Promise((resolve, reject) => {
     const { html, all, lang, day, month } = event.queryStringParameters || {};
     const date = new Date();
     const options = {
